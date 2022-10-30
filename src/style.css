@@ -1,0 +1,96 @@
+* {
+    list-style-type: none;
+    padding: 0rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(243, 132, 132);
+    color: white;
+    padding-inline: 1rem;
+}
+
+.material-symbols-outlined {
+    font-size: 2rem;
+}
+
+.content {
+    display: flex;
+}
+
+.sidebar {
+    flex:1;
+    max-width: 20vw;
+    padding-inline: 1rem;
+    font-size: 1rem;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+}
+
+li {
+    display: flex;
+    align-items: center;
+}
+
+.project>span {
+    color: lightgreen;
+}
+
+.highPrio>span {
+    color: red;
+}
+
+.today>span {
+    color: blue;
+}
+
+.toDoS>span {
+    color: pink;
+}
+
+.view {
+    flex:1;
+    max-width: 80vw;
+}
+
+.todoGrid>* {
+    display: grid;
+    align-items: center;
+    height: 100px;
+    grid-template-columns: 1fr 3fr 1fr 0.2fr 0.2fr;
+    column-gap: 1rem;
+    margin-top: 1rem;
+}
+
+input{
+    height: 80%;
+    background-color: #7ee381;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
+  }
+  
+  input::placeholder {
+    color: white;
+  }
+
+  button {
+    height: 80%;
+    background-color: #7ee381;
+    border: none;
+  }
+
+  button > * {
+    color: white;
+  }
