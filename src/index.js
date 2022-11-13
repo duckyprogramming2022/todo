@@ -1,7 +1,7 @@
 import './style.css';
-import {content, toDoListener, controlCommunication} from './view.js'
+import Controller from "./controller";
 
 
-content();
-console.log('test');
-const test = toDoListener();
+const app = new Controller();
+
+app.run();
