@@ -61,7 +61,7 @@ li {
     max-width: 80vw;
 }
 
-.view>div>div {
+.view>div {
     display: grid;
     align-items: center;
     height: 100px;
@@ -91,6 +91,6 @@ input{
     border: none;
   }
 
-  button > * {
+  /* button > * {
     color: white;
-  }
+  } */

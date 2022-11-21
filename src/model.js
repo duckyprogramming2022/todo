@@ -15,7 +15,7 @@ class Model {
         this.toDoS.push(this.todo);
     };
 
-    createProject (counter, projectName, projectDescription, projectDate='', in_toDoIDS = []) {
+    createProject (counter, projectName = '', projectDescription = '', projectDate='', in_toDoIDS = []) {
         this.project = {id:counter, type: 'project', name: projectName, description: projectDescription, date: projectDate, proToID : in_toDoIDS};
         this.projects.push(this.project);
     };
