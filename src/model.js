@@ -25,18 +25,19 @@ class Model {
       this.projects.filter(project => project['id'] === projectID ? project['proToID'].push(toDoID) : '');
     };
 
-    deleteProject (project) {
-       const id = project['id'];
-       const todos = project['toDoIDS'];
-       this.projects = this.projects.filter(project => project['id'] !== id);
-       todos.forEach(id => this.toDoS.map(todo => todo['id'] === id ? todo['proToID'] = '' : ''));
+    deleteProject (id) {
+        console.log(id);
+       this.projects = this.projects.filter(project => project[`${id}`] !== id);
+    //    const todos = project['toDoIDS'];
+    //    this.projects = this.projects.filter(project => project['id'] !== id);
+    //    todos.forEach(id => this.toDoS.map(todo => todo['id'] === id ? todo['proToID'] = '' : ''));
     };
 
-    deleteToDo (toDo) {
-        const id = toDo['id'];
-        const project = toDo['proToID'];
-        this.toDoS = this.toDoS.filter(toDo => toDo['id'] !== id);
-        this.projects.forEach(pro => pro['id'] === project ? pro['proToID'] = [] : '')
+    deleteToDo (id) {
+        this.toDoS = this.toDoS.filter(toDo => toDo['id'] !== parseInt(id));
+        // const project = toDo['proToID'];
+        // this.toDoS = this.toDoS.filter(toDo => toDo['id'] !== id);
+        // this.projects.forEach(pro => pro['id'] === project ? pro['proToID'] = [] : '')
      };
 };
 

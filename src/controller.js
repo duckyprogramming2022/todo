@@ -20,7 +20,6 @@ class Controller {
                 this.render('Projects');
             }
         })
-
     }
 
     render (what) {
@@ -32,12 +31,21 @@ class Controller {
         }
         this.view.purgeCurrentView();
         this.view.header(what);
-        toRender.forEach(element => this.view.render(element['id']));
+        toRender.forEach(element => {
+            this.view.render(element['id']);
+            this.view.bindDelete(this.handleDelete, element['id']);
+        });
     };
 
-
-    updateModel () {
-        console.log('hey');
+    handleDelete = (id, toDoOrProject) => {
+        if (toDoOrProject === 'ToDo') {
+            console.log(this.model.toDoS);
+            this.model.deleteToDo(id);
+            console.log(this.model.toDoS);
+        } else {
+            this.model.deleteProject(id);
+        }
+        this.render(toDoOrProject)
     }
 
     run () {
