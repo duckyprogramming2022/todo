@@ -1,24 +1,48 @@
 class View {
 
     constructor () {
-        this.todos = document.getElementById('ToDo')
-        this.projects = document.getElementById('Project')
-        this.today = document.getElementById('Today')
+
+        //todos
+        this.todos = document.getElementById('ToDo');
+        this.todoCounter = 0;
+        this.projects = document.getElementById('Project');
+        this.projectCounter = 0;
+        this.today = document.getElementById('Today');
         this.add = document.querySelector('header>span');
         this.header2 = document.querySelector('h2');
+        this.header2.textContent = '';
         this.views = document.querySelector('.view');
-        
     }
 
-    bindDelete(handler,id) {
-        const element = document.getElementById(id);
-        element.lastChild.addEventListener('click', (event) => {
-            handler(element.id, this.header2.textContent);
-        })
+    bindRender(handler) {
+        this.todos.addEventListener('click', () => {
+            this.header2.textContent = 'ToDo';
+            handler(this.header2.textContent);
+        });
+        this.projects.addEventListener('click', () => {
+            this.header2.textContent = 'Project';
+            handler(this.header2.textContent);
+        });
+    };
+
+    bindAdd(handler) {
+        this.add.addEventListener('click', () => {
+            const counter = this.header2.textContent === 'ToDo' ? this.todoCounter +=1 : this.projectCounter +=1;
+            handler(this.header2.textContent, counter);
+        });
     }
 
-    header (info) {
-        this.header2.textContent = info;
+    bindDelete(handler) {
+        this.views.childNodes.forEach(btn => {
+            if (btn.lastChild) {
+            btn.lastChild.addEventListener('click', (event) => handler(this.header2.textContent, event.target.parentNode.id))}
+        });
+    }
+
+    purgeCurrentView () {
+        while (this.views.childNodes.length > 1) {
+            this.views.removeChild(this.views.lastChild);
+        };
     }
 
     render = (id = '') => {
@@ -45,12 +69,6 @@ class View {
             // master
             this.views.append(sub);
         }
-    }
-
-    purgeCurrentView () {
-        while (this.views.childNodes.length > 1) {
-            this.views.removeChild(this.views.lastChild);
-        };
     }
 };
 

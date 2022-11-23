@@ -11,12 +11,12 @@ class Model {
     }
 
     createTodo (counter, toDoName ='', toDoDescription='', toDoDate='', in_projectID=[]) {
-        this.todo = {id : counter, type: 'todo', name: toDoName, description: toDoDescription, date: toDoDate, proToID : in_projectID};
+        this.todo = {id : counter, name: toDoName, description: toDoDescription, date: toDoDate, proToID : in_projectID};
         this.toDoS.push(this.todo);
     };
 
     createProject (counter, projectName = '', projectDescription = '', projectDate='', in_toDoIDS = []) {
-        this.project = {id:counter, type: 'project', name: projectName, description: projectDescription, date: projectDate, proToID : in_toDoIDS};
+        this.project = {id:counter, name: projectName, description: projectDescription, date: projectDate, proToID : in_toDoIDS};
         this.projects.push(this.project);
     };
 
@@ -26,11 +26,10 @@ class Model {
     };
 
     deleteProject (id) {
-        console.log(id);
-       this.projects = this.projects.filter(project => project[`${id}`] !== id);
-    //    const todos = project['toDoIDS'];
-    //    this.projects = this.projects.filter(project => project['id'] !== id);
-    //    todos.forEach(id => this.toDoS.map(todo => todo['id'] === id ? todo['proToID'] = '' : ''));
+        this.projects = this.projects.filter(project => project['id'] !== parseInt(id));
+    //  const todos = project['toDoIDS'];
+    //  this.projects = this.projects.filter(project => project['id'] !== id);
+    //  todos.forEach(id => this.toDoS.map(todo => todo['id'] === id ? todo['proToID'] = '' : ''));
     };
 
     deleteToDo (id) {

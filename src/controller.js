@@ -6,46 +6,39 @@ class Controller {
     constructor () {
         this.view = new View();
         this.model = new Model();
-        this.todoCounter = 0;
-        this.projectCounter = 0;
-        this.view.todos.addEventListener('click', () => this.render('ToDo'));
-        this.view.projects.addEventListener('click', () => this.render('Projects'));
-        this.view.add.addEventListener('click', () => {
-            const toDoOrProject = this.view.header2.textContent;
-            if (toDoOrProject === 'ToDo') {
-                this.model.createTodo(this.todoCounter+=1);
-                this.render('ToDo');
-            } else if (toDoOrProject === 'Projects') {
-                this.model.createProject(this.projectCounter+=1);
-                this.render('Projects');
-            }
-        })
+        this.view.bindRender(this.handleRender);
+        this.view.bindAdd(this.handleAdd);
     }
 
-    render (what) {
-        let toRender = '';
-        if (what === 'ToDo') {
-            toRender = this.model.toDoS;
-        } else {
-            toRender = this.model.projects;
-        }
+    handleRender = (toDoOrProject) => {
+        let data = this.returnToDoOrPoject(toDoOrProject);
         this.view.purgeCurrentView();
-        this.view.header(what);
-        toRender.forEach(element => {
-            this.view.render(element['id']);
-            this.view.bindDelete(this.handleDelete, element['id']);
+        data.forEach(ele => {
+            this.view.render(ele['id']);
         });
-    };
+    }
 
-    handleDelete = (id, toDoOrProject) => {
+    handleAdd = (toDoOrProject, counter) => {
         if (toDoOrProject === 'ToDo') {
-            console.log(this.model.toDoS);
+            this.model.createTodo(counter);
+        } else {
+            this.model.createProject(counter);
+        }
+        this.handleRender(toDoOrProject);
+        this.view.bindDelete(this.handleDelete);
+    }
+
+    handleDelete = (toDoOrProject, id) => {
+        if (toDoOrProject === 'ToDo') {
             this.model.deleteToDo(id);
-            console.log(this.model.toDoS);
         } else {
             this.model.deleteProject(id);
         }
-        this.render(toDoOrProject)
+        this.handleRender(toDoOrProject);
+    }
+
+    returnToDoOrPoject (toDoOrProject) {
+        return toDoOrProject === 'ToDo' ? this.model.toDoS : this.model.projects;
     }
 
     run () {
