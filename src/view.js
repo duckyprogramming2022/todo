@@ -32,6 +32,16 @@ class View {
         });
     }
 
+    bindEdit(handler) {
+        this.views.childNodes.forEach(child => {
+            child.addEventListener('change', (event) => {
+                event.preventDefault();
+                console.log(event.target.parentNode)
+                handler(this.header2.textContent, event.target, event.target.parentNode.id);
+            })
+        })
+    }
+
     bindDelete(handler) {
         this.views.childNodes.forEach(btn => {
             if (btn.lastChild) {
@@ -45,26 +55,41 @@ class View {
         };
     }
 
-    render = (id = '') => {
+    render = (ele, arr_ids = []) => {
         //set sub container id and append respective fields
-        if (id !== '') {
+        console.log(ele);
+        if (ele !== '') {
             // elements
             const inputName = document.createElement('input');
             inputName.type = 'text';
             inputName.className = 'name';
+            inputName.value = ele['name'];
             const inputDescription = document.createElement('input');
             inputDescription.type = 'text';
             inputDescription.className = 'description';
+            inputDescription.value = ele['description'];
             const inputDate = document.createElement('input');
             inputDate.type = 'date';
             inputDate.className = 'date';
+            inputDate.value = ele['date'];
             const proToIDOption = document.createElement('select');
             proToIDOption.className = 'proToID';
+            const opt_selected = document.createElement('option');
+            opt_selected.value = '';
+            opt_selected.textContent = '';
+            opt_selected.defaultSelected;
+            proToIDOption.append(opt_selected);
+            arr_ids.forEach(arr_id => {
+                const opt = document.createElement('option');
+                opt.value = arr_id;
+                opt.textContent = arr_id;
+                proToIDOption.append(opt);
+            });
             const button = document.createElement('button');
             button.className = 'delete';
             // container
             const sub = document.createElement('div');
-            sub.id = id;
+            sub.id = ele['id'];
             sub.append(inputName, inputDescription, inputDate, proToIDOption, button);
             // master
             this.views.append(sub);

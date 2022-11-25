@@ -15,6 +15,22 @@ class Model {
         this.toDoS.push(this.todo);
     };
 
+    editToDo (id, className, value) {
+        this.toDoS.forEach(toDo => {
+            if (toDo['id'] === parseInt(id)) {
+               toDo[`${className}`] = value;
+            }
+        })
+    };
+
+    editProject (id, className, value) {
+        this.projects.forEach(proj => {
+            if (proj['id'] === parseInt(id)) {
+                proj[`${className}`] = value;
+            }
+        })
+    };
+
     createProject (counter, projectName = '', projectDescription = '', projectDate='', in_toDoIDS = []) {
         this.project = {id:counter, name: projectName, description: projectDescription, date: projectDate, proToID : in_toDoIDS};
         this.projects.push(this.project);

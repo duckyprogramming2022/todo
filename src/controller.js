@@ -11,11 +11,18 @@ class Controller {
     }
 
     handleRender = (toDoOrProject) => {
-        let data = this.returnToDoOrPoject(toDoOrProject);
         this.view.purgeCurrentView();
-        data.forEach(ele => {
-            this.view.render(ele['id']);
-        });
+        const toDos = this.model.toDoS;
+        const projects = this.model.projects;
+        if (toDoOrProject === 'ToDo') {
+            const projID = [];
+            projects.forEach(proj => projID.push(proj['id']));
+            toDos.forEach(ele => this.view.render(ele, projID));
+        } else {
+            projects.forEach(ele => this.view.render(ele['id']));
+        }
+        this.view.bindDelete(this.handleDelete);
+        this.view.bindEdit(this.handleEdit);
     }
 
     handleAdd = (toDoOrProject, counter) => {
@@ -25,7 +32,15 @@ class Controller {
             this.model.createProject(counter);
         }
         this.handleRender(toDoOrProject);
-        this.view.bindDelete(this.handleDelete);
+    }
+
+    handleEdit = (toDoOrProject, field_name, id) => {
+        if (toDoOrProject === 'ToDo') {
+            this.model.editToDo(id, field_name.className, field_name.value);
+        } else {
+            this.model.editProject(id, field_name.className, field_name.value);
+        }
+        this.handleRender(toDoOrProject);
     }
 
     handleDelete = (toDoOrProject, id) => {
